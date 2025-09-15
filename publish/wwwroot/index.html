@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Option Pricing API</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://kit.fontawesome.com/0bbd382f3c.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css" />
+  <script src="/script.js" defer></script>
+</head>
+<body>
+  <div id="app">
+  <header class="header">
+    <h1>Option Pricing API</h1>
+  </header>
+    
+        <main class="layout">
+          <div class="inputs">
+            <h2>Input Parameters</h2>
+            <form id="option-form">
+              <div class="input-group">
+                <label for="S">Stock Price (S):</label>
+                <input type="number" id="S" name="S" step="0.01" required value="100"/>
+              </div>
+
+              <div class="input-group">
+              <label for="K">Strike Price (K):</label>
+              <input type="number" id="K" name="K" step="0.01" required value="100"/>
+              </div>
+
+              <div class="input-group">
+              <label for="T">Time to Expiration (T in years):</label>
+              <input type="number" id="T" name="T" step="0.01" required value="1"/>
+              </div>
+
+              <div class="input-group">
+              <label for="r">Risk-Free Interest Rate (r as decimal):</label>
+              <input type="number" id="r" name="r" step="0.0001" required value="0.05"/>
+              </div>
+
+              <div class="input-group">
+              <label for="sigma">Volatility (σ as decimal):</label>
+              <input type="number" id="sigma" name="sigma" step="0.0001" required value="0.2"/>
+              </div>
+
+              <div class="input-group">
+              <label for="q">Dividend Rate (q as decimal):</label>
+              <input type="number" id="q" name="q" step="0.0001" required value="0.02"/>
+              </div>
+
+              <div class="input-group">
+                <label for="exercise">Exercise Type:</label>
+                <select id="exercise-select" name="exercise">
+                  <button>
+                    <selectedcontent></selectedcontent>
+                  </button>
+                  <option value="european">European</option>
+                  <option value="american">American</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label for="payoff">Payoff Type:</label>
+                <select id="payoff-select" name="payoff">
+                  <button>
+                    <selectedcontent></selectedcontent>
+                  </button>
+                  <option value="call">Call</option>
+                  <option value="put">Put</option>
+                  <option value="asian_call">Asian Call</option>
+                  <option value="asian_put">Asian Put</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label for="engine">Pricing Engine (optional, only used for pricing):</label>
+                <select id="engine-select" name="engine">
+                  <button>
+                    <selectedcontent></selectedcontent>
+                  </button>
+                  <option value="auto">Auto</option>
+                  <option value="binomial">Binomial Tree</option>
+                  <option value="fdm">Crank-Nicholson FDM</option>
+                  <option value="mc">Monte-Carlo</option>
+                  <option value="lsmc">Longstaff-Schwartz Monte-Carlo</option>
+                </select>
+              </div>
+              <div class="input-group">
+              <label for="steps">Steps (optional for binomial/fdm/mc):</label>
+              <input type="number" id="steps" name="steps" min="1" step="1" />
+              </div>
+              <div class="input-group">
+              <label for="paths">Paths (optional for mc):</label>
+              <input type="number" id="paths" name="paths" min="1" step="1" />
+              </div>
+              <div class="input-group">
+              <label for="basisDegree">Basis Degree (optional for lsmc):</label>
+              <input type="number" id="basisDegree" name="basisDegree" min="1" step="1" />
+              </div>
+              <button class="submit" type="submit">Calculate Prices</button>
+            </form>
+          </div>
+          <div class="results">
+            <h2>Results</h2>
+            <div id="results-container">
+              <p class="results-price"><span id="price">N/A</span><strong>Price</strong><img src="smallGraph.png"/></p>
+              <p class="results-greek delta"><strong>Delta</strong> <span id="delta">N/A</span></p>
+              <p class="results-greek gamma"><strong>Gamma</strong> <span id="gamma">N/A</span></p>
+              <p class="results-greek theta"><strong>Theta</strong> <span id="theta">N/A</span></p>
+              <p class="results-greek vega"><strong>Vega</strong> <span id="vega">N/A</span></p>
+              <p class="results-greek rho"><strong>Rho</strong> <span id="rho">N/A</span></p>
+            </div>
+            <div id="error-message"></div>
+            <button><i class="fa-solid fa-table-list"></i> View Docs</button>
+          </div>
+          <div class="query" style="display:none;">
+            <nav class="tabs">
+              <ul class="tab-buttons">
+                <li class="active" data-tab="browser-tab">Http</li>
+                <li data-tab="curl-tab">Curl</li>
+                <li data-tab="python-tab">Python</li>
+                <li data-tab="csharp-tab">C# .NET</li>
+                <li data-tab="javascript-tab">JavaScript</li>
+                <li data-tab="powershell-tab">PowerShell</li>
+              </ul>
+            </nav>
+            <div class="request-content">
+              <div class="price-content"></div>
+              <div class="greeks-content"></div>
+            </div>
+          </div>
+          <div class="docs">
+            <iframe src="/docs.html" frameborder="0"></iframe>
+          </div>
+        </main>
+  </div>
+  </body>
+    

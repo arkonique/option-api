@@ -1,0 +1,6 @@
+@OptionPricing.Api_HostAddress = http://localhost:5190
+
+GET {{OptionPricing.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

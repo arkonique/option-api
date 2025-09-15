@@ -1,0 +1,278 @@
+body {
+    font-family: "Roboto Flex", sans-serif;;
+    padding: 20px;
+    margin: 0;
+    background-image: url('bg1.png');
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+
+h1 {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    margin: 0;
+    color: white;
+    font-size: 3rem;
+}
+
+#app {
+  --border: 2px;                  /* size of the gradient border */
+  margin: 0;
+  height: auto;
+  min-height: calc( 100vh - 50px ); /* full height minus padding */
+  position: relative;
+
+  background: #01052a;            /* or any solid/gradient you want inside */
+  color: #fff;
+
+  /* create the transparent border area + rounded corners */
+  border: solid var(--border) transparent;
+  border-radius: 16px;
+  background-clip: padding-box;   /* keep #app bg off the border */
+  box-shadow: 0 0 20px rgba(0,0,0,0.5); /* optional: shadow for depth */
+  padding: 30px;
+  box-sizing: border-box;         /* include padding/border in size */
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* app with animated blue↔red gradient border */
+#app{
+  /* your sizing stays as-is */
+  border: 2px solid transparent;
+  border-radius: 12px;
+
+  /* fill + gradient border as layered backgrounds */
+  background:
+    linear-gradient(#01052a, #01052a) padding-box, /* inner fill */
+    linear-gradient(120deg, #e62442, #28238e, #9f1c9a, #c51f38) border-box; /* border */
+
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+
+  /* animate the gradient border */
+  background-size: 250% 100%;            /* wider for movement */
+  animation: app-border-sweep 20s alternate-reverse infinite;
+}
+
+@keyframes app-border-sweep {
+  to { background-position: -250% 0; }
+}
+
+/* respect reduced-motion users (optional) */
+@media (prefers-reduced-motion: reduce) {
+  #app { animation: none; }
+}
+
+
+
+main {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr; 
+    column-gap: 20px;
+    row-gap: 0px;
+    grid-template-areas:
+        "form results";
+    height: 80%;
+    align-items: stretch;
+}
+
+.inputs, .results, .query {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.inputs {
+  grid-area: form;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 30px;
+
+  border: 1px solid transparent;
+  background:
+    /* inner fill */
+    linear-gradient(
+        313deg,
+        rgba(0, 8, 57, 1) 0%, 
+        rgba(16, 19, 92, 1) 100%
+        ) padding-box,
+    /* gradient border */
+    linear-gradient(
+      90deg,
+      rgba(230, 36, 66, 1) 0%,
+      rgba(159, 28, 154, 1) 50%,
+      rgba(40, 35, 142, 1) 100%
+    ) border-box;
+
+  /* explicit clips (for widest browser compatibility) */
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  display: flex;
+  flex-flow: wrap;
+}
+
+.results {
+    grid-area: results;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 30px;
+
+    border: 1px solid transparent;
+    background:
+      /* inner fill */
+      linear-gradient(
+          313deg,
+          rgba(0, 8, 57, 1) 0%, 
+          rgba(16, 19, 92, 1) 100%
+          ) padding-box,
+      /* gradient border */
+      linear-gradient(
+        134deg,
+        rgba(230, 36, 66, 1) 0%,
+        rgba(159, 28, 154, 1) 5%,
+        rgba(40, 35, 142, 1) 100%
+      ) border-box;
+
+    /* explicit clips (for widest browser compatibility) */
+    background-clip: padding-box, border-box;
+    background-origin: padding-box, border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+h2 {
+    margin-top: 0;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    color: white;
+    font-size: 1.8rem;
+    margin-bottom: 0px;
+    width: 100%;
+    height: 10%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    flex-flow: wrap;
+    column-gap: 40px;
+    row-gap: 10px;
+    height: 90%;
+    overflow-y: auto;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    width: calc(50% - 30px);
+}
+
+label {
+    margin-bottom: 8px;
+    font-weight: 300;
+    color: white;
+    font-size: 1.2rem;
+}
+
+input, select, button {
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: "Roboto Flex", sans-serif;
+    background: rgba(0, 8, 57, 1);
+    color: rgba(255, 255, 255, 0.733);
+    border: 1px solid #5430f363;
+}
+
+button{
+  --b: 2px;
+  border: var(--b) solid transparent;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+
+  /* fill + gradient border */
+  background:
+    linear-gradient(120deg, #e62442, #9f1c9a, #28238e) padding-box,
+    linear-gradient(120deg, #fd3856, #d428cf, #3831be) border-box;
+  background-origin: padding-box, border-box;
+  background-clip:    padding-box, border-box;
+
+  /* make room to “slide” the gradients */
+  background-size: 200% 100%, 200% 100%;
+  background-position: 0% 0, 0% 0;
+
+  transition: background-position .4s ease;
+}
+
+button:hover,
+button:focus-visible{
+  background-position: 50% 0, 50% 0; /* pan both layers */
+}
+
+.docs {
+    display: none
+}
+
+.results h2 {
+    font-size: 3rem;
+}
+
+strong {
+    font-weight: 400;
+}
+.results-price {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid #5430f363;
+    border-radius: 8px;
+    font-size: 2rem;
+    padding: 10px 30px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.results-price span {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.results-price img {
+    --feather: 50px; /* how much to fade the edges */
+    position: absolute;
+    right: 20px;
+    height: 90%;
+    mask-image: radial-gradient(circle at 50% 50%,
+                #000 calc(100% - var(--feather)), transparent 100%);
+}
+
+.results-greek {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border: 1px solid #5430f363;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    padding: 10px 30px;
+    box-sizing: border-box;
+    margin-top: 10px;
+}
+
+.results button {
+    width: 26%;
+    border-radius: 5px;
+    background: #00000045;
+    border: 1px solid #ffffff2e;
+    padding: 15px;
+}
